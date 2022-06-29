@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <title>CBC</title>
+  <!-- For the roboto font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+
+
+
+  </head>
+
+  <body>
+
+
+  <!--Top Bar-->
+  <div class="navbar">
+    <div>
+      <a href="HBD.html"><button onclick="signInPopUp()" class="SignInButton">Sign In</button> </a>
+    </div>
+
+    <script>
+      function signInPopUp() {
+        let text = "Hello! Welcome to CBC Birthday gift, ";
+        let unfilled = true;
+        do {
+          let userId = window.prompt("Please enter your Real Name:", "");
+          text += userId;
+          if (userId != null || userId != "") {
+            unfilled = false;
+          }
+        } while (unfilled == true);
+        unfilled = true;
+        do {
+          let password = window.prompt("Please enter your password:", "password");
+          if (password != null || password != "") {
+            unfilled = false;
+          }
+        } while (unfilled == true);
+        window.alert(text);
+        return userId;
+      }
+    </script>
+
+
+    <!--Top Bar Other buttons -->
+
+    <a class="buttonb" onclick = "window.alert('Please contact 65779209')"> Contact</a>
+    <a class="buttonb" href="index.html"> Home</a>
+
+  </div>
+
+
+  <div class="secondTopBar">
+    <a href="HBD.html">June</a>
+    <a href="">May</a>
+    <a href="">April</a>
+    <a href="">March</a>
+    <a href="">February</a>
+    <a href="">January</a>
+
+  </div>
+
+  
+  <div class="container" style= "height: 1200px">
+    <img src="images/Sunset.jpeg" alt="Code" style="width:100%; height :1200px; opacity: 0.4;">
+    <div class="titleInPage">
+      <h1 style="font-family: sans-serif;">Welcome to CBC - 22</h1>
+      <h2 style="font-weight: bold;">Chan Bo Chu</h2>
+      <h3 style="font-size: 20px; color: grey">Tresurable Memories</h3>
+    </div>
+  </div>
+
+<div class = "container" style = "height: 200px">
+    <div class = "titleInPage"><h2> Cutiest Creature in the World</h2></div>
+ </div>
+
+
+
+<div class = "container" style = "max-height: 2000px ;">
+
+
+ 
+  <h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;text-align:center">2021-2022 Highlights</h2>
+
+  <div class="container1" style="">
+    <div class="mySlides">
+      <div class="numbertext">1 / 6</div>
+      <img src="images/camp_undershelter.jpeg" style="width:80% ;border-radius: 50px ;">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">2 / 6</div>
+      <img src="images/missE.jpeg" style="width:80%;border-radius: 50px ;">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">3 / 6</div>
+      <img src="images/outside_Mplus.jpeg" style="width:80%;border-radius: 50px ;">
+    </div>
+      
+    <div class="mySlides">
+      <div class="numbertext">4 / 6</div>
+      <img src="images/onemonth.jpeg" style="width:80%;border-radius: 50px ;">
+    </div>
+
+    <div class="mySlides">
+      <div class="numbertext">5 / 6</div>
+      <img src="images/fixing_camera.jpeg" style=" width:80%;border-radius: 50px ;">
+    </div>
+      
+    <div class="mySlides">
+      <div class="numbertext">6 / 6</div>
+      <img src="images/sunset_toobright.jpeg" style="width:80%;border-radius: 50px ;">
+    </div>
+      
+    
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+    
+
+    
+  </div>
+
+
+  <div class ="container1" style ="">
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+    <div class="row" >
+      <div class="column">
+        <img class="demo cursor" src="images/camp_undershelter.jpeg" style="width:100%;" onclick="currentSlide(1)" alt="老婆與海">
+      </div>
+      <div class="column">
+          <img class="demo cursor" src="images/missE.jpeg" style="width:100%" onclick="currentSlide(2)" alt="幾時剪番個冬菇頭">
+        </div>
+      <div class="column">
+        <img class="demo cursor" src="images/outside_Mplus.jpeg" style="width:100%;" onclick="currentSlide(3)" alt="158cm -> 170cm">
+      </div>
+      <div class="column">
+        <img class="demo cursor" src="images/onemonth.jpeg" style="width:100%" onclick="currentSlide(4)" alt="又一個月!?">
+      </div>
+
+      <div class="column">
+        <img class="demo cursor" src="images/fixing_camera.jpeg" style="width:100%" onclick="currentSlide(5)" alt="偽文青">
+      </div>
+      
+      <div class="column">
+        <img class="demo cursor" src="images/sunset_toobright.jpeg" style="width:100%" onclick="currentSlide(6)" alt="Enjoy hugging you under the everyday's sunlight ">
+      </div>  
+
+      
+
+    </div>
+  </div>
+
+        <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+        sh
+        function showSlides(n) {
+          let i;
+          let slides = document.getElementsByClassName("mySlides");
+          let dots = document.getElementsByClassName("demo");
+          let captionText = document.getElementById("caption");
+          if (n > slides.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+          }
+          for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";
+          dots[slideIndex-1].className += " active";
+          captionText.innerHTML = dots[slideIndex-1].alt;
+        }
+        </script>
+    
+</div>
+
+<div class="container" style = "transform:translate(30px, 0px)">
+  <div class = "chatbot">
+    <h1 style="font-family: sans-serif;">Ask me something, when you are bored</h1>
+
+    <form action="/action_page.php" id="usrform">
+
+    </form>
+    <br>
+
+
+    <textarea class= "inputBox" id="userInput1" rows="4" cols="60" name="comment"  form="usrform">Enter text here...</textarea>
+
+
+    <input type="submit" onclick = "reply()" >
+
+    <script>
+      
+         function getRandomInt(min, max) {
+                 return Math.floor(Math.random() *10) % max
+            }
+        function reply(){
+            
+
+            var input1 = document.getElementById('userInput1').value ;
+
+           
+            
+            if (input1.toLowerCase().includes("Hello")  || input1.toLowerCase().includes("Hi")|| input1.toLowerCase().includes("早晨") ||  input1.toLowerCase().includes("morn")){
+        
+                let draw = getRandomInt(0,4);
+                
+                switch (draw){
+                    case 0: 
+                        document.getElementById('ans').innerHTML = "Hello, how you doing bobui?";
+                        break;
+                    case 1: 
+                        document.getElementById('ans').innerHTML = "Halo Ha? What did you do today?";
+                        break;
+                    case 2: 
+                        document.getElementById('ans').innerHTML = "Yo, Baby. Whats up";
+                        break;
+                    case 3: 
+                        document.getElementById('ans').innerHTML = "老婆？";
+                        break;
+                }
+            }
+            if (input1.toLowerCase().includes("") || input1.toLowerCase().includes("boring") ||input1.toLowerCase().includes("bored") || input1.toLowerCase().includes("miss")) {
+                
+                let draw = getRandomInt(0,4);
+                
+                switch (draw){
+                    case 0: 
+                        document.getElementById('ans').innerHTML = "How about give a call to GorGor?";
+                        break;
+                    case 1: 
+                        document.getElementById('ans').innerHTML = "Have you lunched yet b??";
+                        break;
+                    case 2: 
+                        document.getElementById('ans').innerHTML = "What did you have for lunch today?";
+                        break;
+                    case 3: 
+                        document.getElementById('ans').innerHTML = "老婆, 直接打俾哥哥啦，老公掛住您鳥";
+                        break;
+                }
+            }
+            if (input1.toLowerCase().includes("love")){
+                let draw = getRandomInt(0,4);
+                
+                switch (draw){
+                    case 0: 
+                        document.getElementById('ans').innerHTML = "I love you so much,CBC!!";
+                        break;
+                    case 1: 
+                        document.getElementById('ans').innerHTML = "Love you bbb. You better find me now, hug hug.";
+                        break;
+                    case 2: 
+                        document.getElementById('ans').innerHTML = "Love me, then call me la.";
+                        break;
+                    case 3: 
+                        document.getElementById('ans').innerHTML = "I love you 老婆,掛住寶貝鳥";
+                        break;
+                }
+            }
+            if (input1.toLowerCase().includes("where are you")||input1.toLowerCase().includes("where are u")||input1.toLowerCase().includes("where r u")){
+                let draw = getRandomInt(0,4);
+                
+                switch (draw){
+                    case 0: 
+                        document.getElementById('ans').innerHTML = "I am at your heart lor";
+                        break;
+                    case 1: 
+                        document.getElementById('ans').innerHTML = "I am at your back. LOOOK";
+                        break;
+                    case 2: 
+                        document.getElementById('ans').innerHTML = "Give me a call and you'll know";
+                        break;
+                    case 3: 
+                        document.getElementById('ans').innerHTML = "Dun know 呢, you guess guess";
+                        break;
+                }
+            }
+            if (input1.toLowerCase().includes("who are you")||input1.toLowerCase().includes("who are u")||input1.toLowerCase().includes("who r u")){
+                let draw = getRandomInt(0,2);
+                
+                switch (draw){
+                    case 0: 
+                        document.getElementById('ans').innerHTML = "I am an AI called CBC's husband Simulator, haha.";
+                        break;
+                    case 1: 
+                        document.getElementById('ans').innerHTML = "I am just an AI";
+                        break;
+                 
+                }
+            }
+            if (input1.toLowerCase().includes("ok")||input1.toLowerCase().includes("good")||input1.toLowerCase().includes("okay")||input1.toLowerCase().includes("yes")||input.toLowerCase().includes("好")){
+                let draw = getRandomInt(0,4);
+                
+                switch (draw){
+                    case 0: 
+                        document.getElementById('ans').innerHTML = "That's awesome.";
+                        break;
+                    case 1: 
+                        document.getElementById('ans').innerHTML = "掂啊！";
+                        break;
+                    case 2: 
+                        document.getElementById('ans').innerHTML = "好！ 仲有冇其他野想問我";
+                        break;
+                    case 3: 
+                        document.getElementById('ans').innerHTML = "掂過借火。";
+                        break;
+                }
+            }
+          
+            if(input1.length > 30){
+                document.getElementById('ans').innerHTML = "Too Long didn't read...... Call me Directly la.";
+            }
+            
+
+        }
+    </script>
+
+    <div class="box sb1"><p id= "ans"></p></div>
+    
+    
+  </div>
+</div>
+
+<div><p style="float: right;"> Developed by Chan Lo Gung, Published at 2022.06.30</p></div>
+
+
+
+  </body>
+
+</html>
