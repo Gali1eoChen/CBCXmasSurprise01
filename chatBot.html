@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <style> 
+
+        .inputBox{
+        border-radius: 10px;
+        }
+
+        .box {
+            width: 300px;
+            margin: 50px auto;
+            background: #00bfb6;
+            padding: 20px;
+            text-align: center;
+            font-weight: 900;
+            color: #fff;
+            font-family: arial;
+            position:relative;
+        }
+        .sb1:before {
+            content: "";
+            width: 0px;
+            height: 0px;
+            position: absolute;
+            border-left: 10px solid #00bfb6;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #00bfb6;
+            border-bottom: 10px solid transparent;
+            right: -20px;
+            top: 6px;
+         }
+                            
+
+    </style>
+    </head>
+    <body>
+        <div class = "chatbot">
+        <h1>Ask me something, when you are bored</h1>
+
+        <form action="/action_page.php" id="usrform">
+
+        </form>
+        <br>
+
+
+        <textarea class= "inputBox" id="userInput1" rows="4" cols="60" name="comment"  form="usrform">Enter text here...</textarea>
+
+
+        <input type="submit" onclick = "reply()" >
+
+        <script>
+            function reply(){
+                document.getElementById('ans').innerHTML = "";
+                function getRandomInt(min, max) {
+                     return Math.floor(Math.random() *10) % max
+                    }
+                var input1 = document.getElementById('userInput1').value ;
+                if (input1.toLowerCase().includes("Hello")  || input1.toLowerCase().includes("Hi")|| input1.toLowerCase().includes("早晨") ||  input1.toLowerCase().includes("morn")){
+            
+                    let draw = getRandomInt(0,4);
+                    
+                    switch (draw){
+                        case 0: 
+                            document.getElementById('ans').innerHTML = "Hello, how you doing bobui?";
+                            break;
+                        case 1: 
+                            document.getElementById('ans').innerHTML = "Halo Ha? What did you do today?";
+                            break;
+                        case 2: 
+                            document.getElementById('ans').innerHTML = "Yo, Baby. Whats up";
+                            break;
+                        case 3: 
+                            document.getElementById('ans').innerHTML = "老婆？";
+                            break;
+                    }
+                }
+                if ( input1.toLowerCase().includes("")|| input1.toLowerCase().includes("boring") ||input1.toLowerCase().includes("bored") || input1.toLowerCase().includes("miss") ){
+                    
+                    let draw = getRandomInt(0,4);
+                    
+                    switch (draw){
+                        case 0: 
+                            document.getElementById('ans').innerHTML = "How about give a call to GorGor?";
+                            break;
+                        case 1: 
+                            document.getElementById('ans').innerHTML = "Have you lunched yet b??";
+                            break;
+                        case 2: 
+                            document.getElementById('ans').innerHTML = "What did you have for lunch today?";
+                            break;
+                        case 3: 
+                            document.getElementById('ans').innerHTML = "老婆, 直接打俾哥哥啦，老公掛住您鳥";
+                            break;
+                    }
+                }
+                if (input1.toLowerCase().includes("love")){
+                    let draw = getRandomInt(0,4);
+                    
+                    switch (draw){
+                        case 0: 
+                            document.getElementById('ans').innerHTML = "I love you tooooooooooooooo";
+                            break;
+                        case 1: 
+                            document.getElementById('ans').innerHTML = "Love you bbb. You better find me now, hug hug.";
+                            break;
+                        case 2: 
+                            document.getElementById('ans').innerHTML = "Love me, then call me la.";
+                            break;
+                        case 3: 
+                            document.getElementById('ans').innerHTML = "I love you too 老婆,掛住寶貝鳥";
+                            break;
+                    }
+                }
+                if (input1.toLowerCase().includes("where are you")){
+                    let draw = getRandomInt(0,4);
+                    
+                    switch (draw){
+                        case 0: 
+                            document.getElementById('ans').innerHTML = "I am at your heart lor";
+                            break;
+                        case 1: 
+                            document.getElementById('ans').innerHTML = "I am at your back. LOOOK";
+                            break;
+                        case 2: 
+                            document.getElementById('ans').innerHTML = "Give me ask me and you'll know";
+                            break;
+                        case 3: 
+                            document.getElementById('ans').innerHTML = "Dun know 呢, you guess guess";
+                            break;
+                    }
+                }
+
+            }
+        </script>
+
+        <div class="box sb1"><p id= "ans"></p></div>
+        
+        <p>The text area above is outside the form element, but should still be a part of the form.</p>
+    </div>
+
+    </body>
+</html>
