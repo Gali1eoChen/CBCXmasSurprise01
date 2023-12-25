@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Card</title>
+ 
+  <style>
+ @import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+
+body {
+  margin: 0;
+  /* background-color: #4CAF50; */
+  /*background: radial-gradient(circle at center, rgba(50,50,50,1) 0%,rgba(14,14,14,1) 35%)*/
+  background-image: url('images/ChristmasCardBG.png');
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+img {
+  max-width: 100%;
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+h2 {
+  font-family: 'Dancing Script', serif;
+  font-weight: normal;
+  font-size: 45px;
+  color: #009500;
+  text-align: center;
+}
+h3 {
+  font-family: 'Dancing Script', serif;
+  font-weight: normal;
+  font-size: 30px;
+  color: #76e5f7;
+  text-align: center;
+}
+h4 {
+  font-family: 'Dancing Script', serif;
+  font-weight: normal;
+  font-size: 15px;
+  color: #0060c0;
+  text-align: left;
+}
+
+.wrap {
+  width: 350px;
+  height: 300px;
+  position: relative;
+  transform: rotateX(30deg);
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 2px rgba(0, 0, 0, .3);
+}
+
+.card {
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 2px;
+  position: relative;
+  border: 8px solid;
+  border-image: linear-gradient(to right, #B60003, #007BFF) 1;
+  text-align: center;
+}
+
+.card--front {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 1.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-origin: center left;
+  position: absolute;
+  padding: 0;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card--front.open {
+  transform: rotateY(-180deg);
+}
+#AiDisneyPic{
+    height: 70%;
+    width: 70%;
+}
+
+.card--front.back {
+  z-index: 0;
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
+
+}
+.card--front.back h4{
+transform: rotateY(-180deg);
+}
+.card--inner {
+  overflow: hidden;
+  padding: 15px;
+}
+
+.card--inner h2 {
+  font-size: 32px;
+}
+
+.card--inner img {
+  max-width: 60%;
+  margin-top: 1.5em;
+}
+
+.card--inner.open:before {
+  transform: translateX(-155%);
+  opacity: .1;
+}
+
+.card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  z-index: 1;
+  opacity: 1;
+  transition: all 1s ease-in-out;
+}
+
+button {
+  -webkit-appearance: none;
+  background: #00f67f;
+  border: 5px solid darken(#E53935, 20%);
+  border-radius: 20px;
+  border-width: 0 0 5px;
+  padding: 10px 20px;
+  width: 150px;
+  text-align: center;
+  display: block;
+  transform: rotateX(30deg);
+  margin-top: 20px;
+  box-shadow: 0 4px 2px rgba(0, 0, 0, .3);
+}
+
+button:active {
+  border-bottom-width: 2px;
+  margin-top: 23px;
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+    </style>
+</head>
+<body>
+    <script>
+        function openCard() {
+  var button = document.getElementById('button');
+  var AiDisneyPic = document.getElementById("AiDisneyPic");
+  if(button.innerHTML == 'Open Card') {
+    button.innerHTML = 'Close Card';
+    AiDisneyPic.style.display = "block";
+    audio.play();
+  } else {
+    button.innerHTML = 'Open Card';
+    AiDisneyPic.style.display = "none";
+    audio.pause();
+  }
+  
+  var cards = document.querySelectorAll('.card');
+  for(var i = 0; i < cards.length; i++) {
+    cards[i].classList.toggle('open');
+  }
+}
+    </script>
+    <div class="wrap" id="wrap">
+        <audio id="audio" src="bgm/ALOHA.mp3" autoplay loop></audio>
+        <div class="card card--inner">
+            <h4>Dear my 陳小老，</h4>
+     
+          <h4>  
+            First of all, I love you. 今年雖然冇得同您行Xmas Market, 冇得同您一齊睇聖誕🌲，但係老公會一直身,心,靈, 陪住您過好多好多個聖誕的。 我地又大一歲了，好多謝一齊努力長大嘅兩位，要'和和氣氣'同繼續做大家嘅back-up 喔!
+            悶就Call gorgor 咯～ btw 睇翻每一年嘅相，覺得您越黎越可愛。。。 B muahhh xoxo.
+            
+          </h4>
+  
+          <h4> Love, <br>
+            靚仔又有才華的老公上</h4>
+   
+        </div>
+        <div class="card card--front back" onclick="openCard();">  <img id="AiDisneyPic" src="images/AiDisney.png" style="display: none;"> <h4 style="color: #E53935;"> Me and CBC this year . Love over distance.<br> Designed by Chester.AI</h4></div>
+        <div class="card card--front" onclick="openCard();">
+          <h3>To: CBC</h3>
+          <h2>Feliz Navidad<br>my BoBuiiiiii<br>Xmas 2023</h2>
+         
+        </div>
+
+      </div>
+      
+      <button type="button" onclick="openCard();" id="button">Open Card</button>
+      
+</body>
+</html>
+
