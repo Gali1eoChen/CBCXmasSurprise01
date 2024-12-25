@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Potta+One&display=swap" rel="stylesheet">
+    <title>Inbox</title>
+    <style>
+        body {
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .title {
+            font-family: "Permanent Marker", serif;
+        }
+        .date {
+            font-family: "Permanent Marker", serif;
+        }
+        .container {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .box {
+            background-color: rgba(255, 192, 203, 0.5); /* Pink with 50% transparency */
+            backdrop-filter: blur(10px); /* Blur effect for glass-like appearance */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
+            border-radius: 15px; /* Rounded corners */
+            padding: 20px; /* Padding inside the element */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease; /* Smooth transition for hover effect */
+        }
+        .box:hover {
+            transform: translateY(-10px); /* Float up effect on hover */
+            cursor: pointer;
+        }
+        .title {
+            font-weight: bold;
+        }
+        .SignInButton {
+    margin-top: 200px;
+    float: right;
+    background-color: rgb(40, 151, 188);
+    border-radius: 25px;
+    padding: 15px;
+    border:  0px;
+    font-size: 17px;
+    color : white; 
+    text-align: center; 
+    font-family: Arial;
+    cursor: pointer; /* It is about what would u mouse look like when u point at it */
+  }
+  a {
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Inherit color from parent */
+        }
+  
+  .SignInButton:hover {
+    background-color: rgb(113, 195, 222);
+  }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="2024XmasCard.html">
+        <div class="box">
+            <div class="title" >  Christmas Card 2024</div>
+            <div class="date">2024 Dec</div>
+        </div>
+    </a>
+        <a href="card.html">
+        <div class="box">
+            <div class="title" >  Christmas Card 2023</div>
+            <div class="date">2023 Dec</div>
+        </div>
+    </a>
+        <!-- Add more boxes as needed -->
+        <a href="index.html"><button  class="SignInButton" style="color: rgb(247, 247, 247);">Back to HomePage</button> </a>
+    </div>
+    
+</body>
+</html>
