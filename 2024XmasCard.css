@@ -352,7 +352,21 @@ ul li {
 #monchichiHead{
     width: 85%;
     transform: translate(39px, -280px); 
+    position: relative ;
 }
+@media (min-height: 808px) {
+    #monchichiHead {
+        transform: translate(-30px, -50px);
+    }
+}
+@media (min-height: 945px) {
+    #monchichiHead {
+        transform: translate(-40px, -50px);
+    }
+}
+
+
+
 
 .ho-ho-ho {
     height: 0;
