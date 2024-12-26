@@ -160,17 +160,17 @@ ul li {
     display: block;
     margin: 0 auto;
     max-width: 500px;
-    animation: santa-claus 2s ease-in-out infinite alternate;
+    animation: santa-claus 3s ease-in-out infinite alternate;
     transform-origin: bottom;
     transform-box: fill-box;
 }
 
 @keyframes santa-claus {
     from {
-        transform: rotateZ(-10deg);
+        transform: rotateZ(-5deg);
     }
     to {
-        transform: rotateZ(10deg);
+        transform: rotateZ(5deg);
     }
 }
 
@@ -333,7 +333,7 @@ ul li {
     animation: animabeard 1.6s ease-in-out infinite alternate;
 }
 
-.santa-claus .face > .beard > .mouth {
+/* .santa-claus .face > .beard > .mouth {
     height: 50px;
     left: 30px;
     margin: 0 auto;
@@ -348,7 +348,7 @@ ul li {
     -webkit-animation: hoho 1.6s ease-in-out infinite alternate;
     -moz-animation: hoho 1.6s ease-in-out infinite alternate;
     animation: hoho 1.6s ease-in-out infinite alternate;
-}
+} */
 #monchichiHead{
     width: 85%;
     transform: translate(39px, -280px); 
@@ -361,9 +361,25 @@ ul li {
 }
 @media (min-height: 945px) {
     #monchichiHead {
-        transform: translate(-40px, -50px);
+        transform: translate(-40px, -100px);
     }
 }
+@media (min-height: 960px) {
+    #monchichiHead {
+        transform: translate(-40px, 0px);
+    }
+}
+@media (max-width: 810px) {
+    #monchichiHead {
+        transform: translate(50px, -300px);
+    }
+}
+@media (max-width: 390px) {
+    #monchichiHead {
+        transform: translate(30px, -260px);
+    }
+}
+
 
 
 
