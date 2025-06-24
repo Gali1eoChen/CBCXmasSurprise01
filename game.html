@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Birthday Maze Card</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #0d1b2a, #1b263b);
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+        }
+
+        .starfield {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .card {
+            width: 750px;
+            height: 550px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #00ffcc;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.7);
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 10;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 60px rgba(0, 255, 204, 1);
+        }
+
+        .text {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #00ffcc;
+            font-size: 28px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00ffcc;
+            animation: flicker 1.5s infinite;
+            z-index: 20;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .message {
+            position: absolute;
+            top: 45px;
+            left: 10px;
+            color: #e0e0e0;
+            font-size: 16px;
+            text-shadow: 0 0 5px #00ffcc;
+            opacity: 0;
+            animation: slideIn 1s forwards 0.5s;
+            z-index: 20;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(-5px); }
+        }
+
+        .collected-letters {
+            position: absolute;
+            top: 70px;
+            left: 10px;
+            color: #ff007f;
+            font-size: 16px;
+            text-shadow: 0 0 5px #ff007f;
+            z-index: 20;
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ffcc;
+            border-radius: 10px;
+            padding: 20px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 0 20px #00ffcc;
+            z-index: 30;
+        }
+
+        .modal-input {
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            width: 200px;
+            margin-bottom: 10px;
+        }
+
+        .modal-button {
+            padding: 8px 16px;
+            background: transparent;
+            border: 2px solid #ff007f;
+            color: #ff007f;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px #ff007f;
+            margin: 5px;
+        }
+
+        .modal-button:hover {
+            background: #ff007f;
+            color: #fff;
+            box-shadow: 0 0 20px #ff007f;
+        }
+
+        .maze-container {
+            position: absolute;
+            width: 700px;
+            height: 420px;
+            left: 25px;
+            top: 100px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ffcc;
+            z-index: 15;
+        }
+
+        .maze {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .wall {
+            position: absolute;
+            background: linear-gradient(45deg, #00ffcc, #ff007f);
+            opacity: 0.7;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .player {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            font-size: 25px;
+            text-align: center;
+            animation: bounce 0.5s infinite alternate;
+            z-index: 18;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-3px); }
+        }
+
+        .goal {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #ff007f, #00ffcc);
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ff007f;
+            background: radial-gradient(circle, #ff007f, #00ffcc);
+            animation: pulseGoal 1s infinite;
+            z-index: 17;
+        }
+
+        @keyframes pulseGoal {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .collectible {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ffd700, #ffa500);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            font-size: 12px;
+            font-weight: bold;
+            animation: pulseCollectible 0.8s infinite;
+            z-index: 16;
+        }
+
+        @keyframes pulseCollectible {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #00ffcc, #ff007f);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffcc;
+            animation: float 4s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 30%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 70%; animation-delay: 2s; }
+
+        .button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 2px solid #ff007f;
+            color: #ff007f;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px #ff007f;
+            z-index: 20;
+        }
+
+        .button:hover {
+            background: #ff007f;
+            color: #fff;
+            box-shadow: 0 0 20px #ff007f;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(45deg, #00ffcc, #ff007f);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
+        }
+
+        .gift-reveal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: #00ffcc;
+            font-size: 24px;
+            text-shadow: 0 0 10px #00ffcc;
+            animation: fadeIn 1s forwards;
+            z-index: 30;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="starfield" id="starfield"></div>
+    <div class="card">
+        <div class="text">Happy Birthday!</div>
+        <div class="message" id="message">Collect all 8 hidden letters in the upper maze and reach the pulsating exit in the rightmost cell of row 13!</div>
+        <div class="collected-letters" id="letters">Collected Letters: </div>
+        <div class="modal" id="guessModal">
+            <input type="text" class="modal-input" id="guessInput" placeholder="Enter the phrase">
+            <div>
+                <button class="modal-button" onclick="submitGuess()">Submit</button>
+                <button class="modal-button" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+        <div class="maze-container">
+            <div class="maze" id="maze">
+                <div class="player" id="player">🌟</div>
+                <div class="goal" id="goal"></div>
+            </div>
+        </div>
+        <button class="button" id="startButton" onclick="startGame()">Play Maze</button>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="gift-reveal" id="giftReveal">You Win! Your Cosmic Gift is: A Year of Sparkling Adventures!</div>
+    </div>
+    <script>
+        // Generate starfield
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starfield.appendChild(star);
+        }
+
+        // Confetti effect
+        function triggerConfetti() {
+            const card = document.querySelector('.card');
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 750}px`;
+                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animation = `confettiFall ${1 + Math.random()}s linear`;
+                card.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 2000);
+            }
+        }
+
+        // Maze setup
+        const maze = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+            [1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+            [1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+            [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+            [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+            [1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+        ];
+
+        const letters = ['I', 'L', 'O', 'V', 'E', 'C', 'B', 'C'];
+
+        // Generate valid positions for collectibles in first 10 rows
+        function getValidPositions() {
+            const validPositions = [];
+            const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+            for (let y = 0; y < 10; y++) {
+                for (let x = 0; x < maze[y].length; x++) {
+                    if (maze[y][x] === 0 && !(x === 1 && y === 1) && !(x === 19 && y === 13)) {
+                        let openNeighbors = 0;
+                        for (const [dx, dy] of directions) {
+                            const nx = x + dx, ny = y + dy;
+                            if (nx >= 0 && nx < maze[0].length && ny >= 0 && ny < maze.length && maze[ny][nx] === 0) {
+                                openNeighbors++;
+                            }
+                        }
+                        if (openNeighbors >= 2) {
+                            validPositions.push({ x, y });
+                        }
+                    }
+                }
+            }
+            return validPositions;
+        }
+
+        // BFS to check if a position is reachable from start
+        function isReachable(startX, startY, targetX, targetY) {
+            const queue = [[startX, startY]];
+            const visited = new Set();
+            visited.add(`${startX},${startY}`);
+            const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+
+            while (queue.length > 0) {
+                const [x, y] = queue.shift();
+                if (x === targetX && y === targetY) return true;
+
+                for (const [dx, dy] of directions) {
+                    const nx = x + dx, ny = y + dy;
+                    if (nx >= 0 && nx < maze[0].length && ny >= 0 && ny < maze.length && maze[ny][nx] === 0 && !visited.has(`${nx},${ny}`)) {
+                        queue.push([nx, ny]);
+                        visited.add(`${nx},${ny}`);
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Shuffle array to randomize positions
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Place all 8 collectibles in reachable positions in first 10 rows
+        function placeCollectibles() {
+            const validPositions = shuffle(getValidPositions());
+            const collectibles = [];
+            let attempts = 0;
+            const maxAttempts = 10;
+
+            while (collectibles.length < letters.length && attempts < maxAttempts) {
+                collectibles.length = 0;
+                const tempPositions = shuffle([...validPositions]);
+                for (let i = 0; i < letters.length && i < tempPositions.length; i++) {
+                    const pos = tempPositions[i];
+                    if (isReachable(1, 1, pos.x, pos.y)) {
+                        collectibles.push({
+                            x: pos.x,
+                            y: pos.y,
+                            letter: letters[i],
+                            collected: false
+                        });
+                    }
+                }
+                attempts++;
+            }
+
+            if (collectibles.length !== letters.length) {
+                console.error(`Only ${collectibles.length} collectibles placed after ${attempts} attempts`);
+                alert('Error: Could not place all 8 letters in top 10 rows. Please refresh.');
+                return collectibles;
+            }
+            console.log(`Successfully placed ${collectibles.length} collectibles in rows 0-9:`, collectibles);
+            return collectibles;
+        }
+
+        const collectibles = placeCollectibles();
+
+        // Assign shuffled letters to collectibles
+        const shuffledLetters = shuffle([...letters]);
+        collectibles.forEach((c, i) => {
+            c.letter = shuffledLetters[i];
+        });
+
+        // Render walls and collectibles
+        const mazeElement = document.getElementById('maze');
+        for (let y = 0; y < maze.length; y++) {
+            for (let x = 0; x < maze[y].length; x++) {
+                if (maze[y][x] === 1) {
+                    const wall = document.createElement('div');
+                    wall.className = 'wall';
+                    wall.style.width = '35px';
+                    wall.style.height = '35px';
+                    wall.style.left = `${x * 35}px`;
+                    wall.style.top = `${y * 35}px`;
+                    mazeElement.appendChild(wall);
+                }
+            }
+        }
+
+        // Render collectibles and verify visibility
+        collectibles.forEach((c, i) => {
+            const collectible = document.createElement('div');
+            collectible.className = 'collectible';
+            collectible.id = `collectible-${i}`;
+            const pixelX = c.x * 35 + 7.5;
+            const pixelY = c.y * 35 + 7.5;
+            collectible.style.left = `${pixelX}px`;
+            collectible.style.top = `${pixelY}px`;
+            collectible.style.display = 'flex';
+            collectible.textContent = '?';
+            mazeElement.appendChild(collectible);
+            if (collectible.offsetParent !== null) {
+                console.log(`Rendered collectible ${i} at (${c.x}, ${c.y}) [${pixelX}px, ${pixelY}px] with letter ${c.letter}`);
+            } else {
+                console.error(`Collectible ${i} at (${c.x}, ${c.y}) not visible in DOM`);
+            }
+        });
+
+        // Verify goal is within maze
+        const goal = document.getElementById('goal');
+        goal.style.left = `${18 * 35}px`;
+        goal.style.top = `${11 * 35}px`;
+        goal.style.display = 'block';
+        console.log(`Goal rendered at (19, 13) [${19 * 35}px, ${13 * 35}px]`);
+
+        // Verify goal reachability
+        if (!isReachable(1, 1, 19, 13)) {
+            console.error('Goal at (19, 13) is not reachable from (1, 1)');
+            alert('Error: Exit at (19, 13) is not reachable. Please refresh.');
+        }
+
+        // Game logic
+        let playerX = 1, playerY = 1;
+        let collectedLetters = [];
+        let isGameActive = false;
+        const player = document.getElementById('player');
+        const message = document.getElementById('message');
+        const lettersDisplay = document.getElementById('letters');
+        const guessModal = document.getElementById('guessModal');
+        const guessInput = document.getElementById('guessInput');
+        const giftReveal = document.getElementById('giftReveal');
+
+        function showModal() {
+            guessModal.style.display = 'flex';
+            guessInput.focus();
+        }
+
+        function closeModal() {
+            guessModal.style.display = 'none';
+            guessInput.value = '';
+            message.textContent = 'Try again at the exit.';
+        }
+
+        function submitGuess() {
+            const guess = guessInput.value.trim().toUpperCase().replace(/\s+/g, '');
+            if (guess === 'ILOVECBC') {
+                guessModal.style.display = 'none';
+                giftReveal.style.display = 'flex';
+                triggerConfetti();
+                message.textContent = 'Correct! Gift Unlocked!';
+                isGameActive = false;
+            } else {
+                message.textContent = 'Wrong phrase! Try again at the exit.';
+                guessInput.value = '';
+                guessInput.focus();
+            }
+        }
+
+        function updatePlayerPosition() {
+            player.style.left = `${playerX * 35}px`;
+            player.style.top = `${playerY * 35}px`;
+            collectibles.forEach((c, i) => {
+                if (playerX === c.x && playerY === c.y && !c.collected) {
+                    const collectible = document.getElementById(`collectible-${i}`);
+                    if (collectible) {
+                        collectible.textContent = c.letter;
+                        setTimeout(() => {
+                            collectible.remove();
+                            c.collected = true;
+                            collectedLetters.push(c.letter);
+                            lettersDisplay.textContent = `Collected Letters: ${collectedLetters.join(' ')}`;
+                        }, 300);
+                    }
+                }
+            });
+            if (playerX === 18 && playerY === 11) {
+                if (collectedLetters.length === letters.length) {
+                    showModal();
+                    isGameActive = false;
+                } else {
+                    message.textContent = `Collect all ${letters.length} letters first!`;
+                }
+            }
+        }
+
+        function startGame() {
+            if (collectibles.length !== letters.length) {
+                message.textContent = 'Error: Not all 8 letters spawned! Refresh to retry.';
+                console.error(`Collectibles: ${collectibles.length}, Expected: ${letters.length}`);
+                return;
+            }
+            let visibleCollectibles = 0;
+            collectibles.forEach((c, i) => {
+                const collectible = document.getElementById(`collectible-${i}`);
+                if (collectible && collectible.offsetParent !== null) {
+                    visibleCollectibles++;
+                }
+            });
+            if (visibleCollectibles !== letters.length) {
+                message.textContent = `Error: Only ${visibleCollectibles} of 8 letters are visible! Refresh to retry.`;
+                console.error(`Visible collectibles: ${visibleCollectibles}, Expected: ${letters.length}`);
+                return;
+            }
+            isGameActive = true;
+            message.textContent = 'Collect all 8 hidden letters in the upper maze and reach the pulsating exit in the rightmost cell of row 13!';
+            document.getElementById('startButton').style.display = 'none';
+            updatePlayerPosition();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (!isGameActive) return;
+            let newX = playerX, newY = playerY;
+            if (e.key === 'ArrowUp') newY--;
+            if (e.key === 'ArrowDown') newY++;
+            if (e.key === 'ArrowLeft') newX--;
+            if (e.key === 'ArrowRight') newX++;
+            if (newX >= 0 && newX < maze[0].length && newY >= 0 && newY < maze.length && maze[newY][newX] === 0) {
+                playerX = newX;
+                playerY = newY;
+                updatePlayerPosition();
+            }
+        });
+
+        // Allow Enter key to submit guess
+        guessInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                submitGuess();
+            }
+        });
+    </script>
+</body>
+</html>

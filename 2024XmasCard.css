@@ -376,7 +376,7 @@ ul li {
 }
 @media (max-width: 390px) {
     #monchichiHead {
-        transform: translate(30px, -260px);
+        transform: translate(20px, -280px);
     }
 }
 
