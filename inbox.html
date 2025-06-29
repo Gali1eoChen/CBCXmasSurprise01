@@ -5,52 +5,242 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Potta+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <title>Inbox</title>
-    <style>
-        body {
-            background-color: lightblue;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .title {
-            font-family: "Permanent Marker", serif;
-        }
-        .date {
-            font-family: "Permanent Marker", serif;
-        }
-        .container {
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .box {
-            background-color: rgba(255, 192, 203, 0.5); /* Pink with 50% transparency */
-            backdrop-filter: blur(10px); /* Blur effect for glass-like appearance */
-            -webkit-backdrop-filter: blur(10px); /* Safari support */
-            border-radius: 15px; /* Rounded corners */
-            padding: 20px; /* Padding inside the element */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.3s ease; /* Smooth transition for hover effect */
-        }
-        .box:hover {
-            transform: translateY(-10px); /* Float up effect on hover */
-            cursor: pointer;
-        }
-        .title {
-            font-weight: bold;
-        }
-        .SignInButton {
-    margin-top: 200px;
+ <style>
+    /* Base Styles */
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* Futuristic Container */
+.futuristic-container {
+    width: 85%;
+    max-width: 1200px;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Neon Title */
+.neon-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 60px;
+    color: #00f3ff;
+    text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff, 0 0 30px #00f3ff;
+    letter-spacing: 2px;
+    position: relative;
+    animation: pulse 2s infinite alternate;
+}
+
+.neon-subtitle {
+    font-size: 1.5rem;
+    display: block;
+    color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+}
+
+@keyframes pulse {
+    from {
+        text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff, 0 0 30px #00f3ff;
+    }
+    to {
+        text-shadow: 0 0 15px #00f3ff, 0 0 30px #00f3ff, 0 0 45px #00f3ff;
+    }
+}
+
+/* Card Grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+/* Holographic Card */
+.holographic-card {
+    position: relative;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.2);
+    text-decoration: none;
+    color: white;
+}
+
+.holographic-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 40px rgba(0, 243, 255, 0.4);
+}
+
+.card-content {
+    position: relative;
+    padding: 25px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+}
+
+.card-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 243, 255, 0.7);
+}
+
+.card-date {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    color: #00f3ff;
+    align-self: flex-end;
+}
+
+/* Card Effects */
+.card-glare {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.3) 45%,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    transition: all 0.5s ease;
+}
+
+.holographic-card:hover .card-glare {
+    animation: glare 2s infinite;
+}
+
+@keyframes glare {
+    0% {
+        transform: rotate(30deg) translate(-30%, -30%);
+    }
+    100% {
+        transform: rotate(30deg) translate(30%, 30%);
+    }
+}
+
+.card-reflection {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 243, 255, 0.1) 0%,
+        rgba(0, 243, 255, 0) 100%
+    );
+    border-radius: 0 0 15px 15px;
+}
+
+/* Back Button */
+.back-button {
+    display: inline-block;
+    position: relative;
+    padding: 15px 30px;
+    background: rgba(40, 151, 188, 0.2);
+    border: 1px solid rgba(40, 151, 188, 0.5);
+    border-radius: 30px;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    text-decoration: none;
+    text-align: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background: rgba(113, 195, 222, 0.3);
+    box-shadow: 0 0 15px rgba(113, 195, 222, 0.5);
+}
+
+.button-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(113, 195, 222, 0.4),
+        transparent
+    );
+    transition: none;
+}
+
+.back-button:hover .button-glow {
+    left: 100%;
+    transition: all 0.8s ease;
+}
+
+.button-text {
+    position: relative;
+    z-index: 2;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .futuristic-container {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    .neon-title {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+    
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Existing Navbar Styles (kept from original) */
+.navbar {
+    font-family: 'Arial';
+    font-weight: none;
+    width: 100%;
+    background-color: white;
+    overflow: auto;
+    padding:  5 px;
+    text-align: center;
+}
+
+.navbar a:hover {
+    color: rgb(40, 151, 188);
+}
+
+.SignInButton {
     float: right;
     background-color: rgb(40, 151, 188);
     border-radius: 25px;
@@ -60,38 +250,245 @@
     color : white; 
     text-align: center; 
     font-family: Arial;
-    cursor: pointer; /* It is about what would u mouse look like when u point at it */
-  }
-  a {
-            text-decoration: none; /* Remove underline */
-            color: inherit; /* Inherit color from parent */
-        }
-  
-  .SignInButton:hover {
+    cursor: pointer;
+}
+
+.SignInButton:hover {
     background-color: rgb(113, 195, 222);
-  }
+}
 
+.buttonb {
+    float: right;
+    background-color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    padding: 15px;
+    border:  0px;
+    font-size: 17px;
+    color : Black; 
+    text-align: center;
+    font-family: Arial;
+    cursor: pointer; 
+    float:  center;
+    overflow: hide;
+}
 
-    </style>
+@media screen and (max-width: 500px) {
+    .navbar a {
+        float: none;
+        display: block;
+        padding-top: 1px;
+    }
+    .container{
+        padding-top : 1px;
+    }
+}
+
+.secondTopBar { 
+    font-family: "Verdana",sans-serif;
+    font-weight: none;
+    width: 100%;
+    float: right;
+    background-color: black;
+    overflow: auto; 
+    transform:  translate(0px 500px);
+}
+
+.secondTopBar a {
+    color: white;
+    float:  right;
+    font-family: "Montserrat", sans-serif ;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 20px;
+}
+
+.titleInPage{
+    float: right;
+    width: 85%;
+    text-align: center;
+    color:  black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    padding: 20px;
+    margin-top: 15px;
+    overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+.container{
+    position: relative;
+    background-position: center;
+    width: 100%;
+    margin: none;
+    border:  none;
+    padding:  none;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    float: right;
+    z-index: -1;
+}
+
+/* Gallery Styles (kept from original) */
+* {
+    box-sizing: border-box;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.container1 {
+    position: relative;
+}
+
+.mySlides {
+    display: none;
+    width: 80%;
+    height: 80%;
+    transform:translate(250px,0px);
+    align-content: center;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: rgb(32, 134, 175);
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.next {
+    border-radius: 3px 0 0 3px;
+    right:60px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgb(17, 15, 142);
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 15px 15px;
+    position: absolute;
+    top: 0;
+}
+
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 16.66%;
+}
+
+.demo {
+    opacity: 0.6;
+    height: 250px;
+    border: #222,blue;
+    border-radius: 20px;
+}
+
+.active,
+.demo:hover {
+    opacity: 1;
+}
+
+/* Chatbot Styles (kept from original) */
+.inputBox{
+    border-radius: 10px;
+}
+
+.box {
+    width: 300px;
+    margin: 50px auto;
+    background: #00bfb6;
+    padding: 20px;
+    text-align: center;
+    font-weight: 900;
+    color: #fff;
+    font-family: arial;
+    position:relative;
+}
+
+.sb1:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid #00bfb6;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #00bfb6;
+    border-bottom: 10px solid transparent;
+    right: -20px;
+    top: 6px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+ </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="title" > Card Inventory (唔會再唔見 ^ ^ ) </h1>
-        <a href="2024XmasCard.html">
-        <div class="box">
-            <div class="title" >  Christmas Card 2024</div>
-            <div class="date">2024 Dec</div>
+    <div class="futuristic-container">
+        <h1 class="neon-title">Card Inventory <span class="neon-subtitle">(唔會再唔見 ^ ^)</span></h1>
+        
+        <div class="card-grid">
+            <a href="2024XmasCard.html" class="holographic-card">
+                <div class="card-content">
+                    <div class="card-title">Christmas Card 2024</div>
+                    <div class="card-date">2024 Dec</div>
+                    <div class="card-glare"></div>
+                    <div class="card-reflection"></div>
+                </div>
+            </a>
+            
+            <a href="card.html" class="holographic-card">
+                <div class="card-content">
+                    <div class="card-title">Christmas Card 2023</div>
+                    <div class="card-date">2023 Dec</div>
+                    <div class="card-glare"></div>
+                    <div class="card-reflection"></div>
+                </div>
+            </a>
+            
+            <!-- Future cards can be added here -->
         </div>
-    </a>
-        <a href="card.html">
-        <div class="box">
-            <div class="title" >  Christmas Card 2023</div>
-            <div class="date">2023 Dec</div>
-        </div>
-    </a>
-        <!-- Add more boxes as needed -->
-        <a href="index.html"><button  class="SignInButton" style="color: rgb(247, 247, 247);">Back to HomePage</button> </a>
+        
+        <a href="index.html" class="back-button">
+            <span class="button-text">Back to HomePage</span>
+            <span class="button-glow"></span>
+        </a>
     </div>
-    
 </body>
 </html>

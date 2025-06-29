@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Rotatable Birthday Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #0d1b2a, #1b263b);
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .starfield {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .image-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .grid-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .card-container {
+            width: 750px;
+            height: 550px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+            z-index: 10;
+            cursor: grab;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #00ffcc;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.7);
+            backface-visibility: hidden;
+        }
+
+        .card-front {
+            transform: rotateY(0deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 60px rgba(0, 255, 204, 1);
+        }
+
+        .text {
+            color: #00ffcc;
+            font-size: 48px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00ffcc;
+            animation: flicker 1.5s infinite;
+            text-align: center;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .message {
+            color: #e0e0e0;
+            font-size: 24px;
+            text-shadow: 0 0 5px #00ffcc;
+            opacity: 0;
+            animation: slideIn 1s forwards 0.5s;
+            text-align: center;
+            margin: 20px;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        .card-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #00ffcc, #ff007f);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffcc;
+            animation: float 4s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        .particle:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            left: 30%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(3) {
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        .music-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 2px solid #ff007f;
+            color: #ff007f;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px #ff007f;
+            z-index: 20;
+        }
+
+        .music-button:hover {
+            background: #ff007f;
+            color: #fff;
+            box-shadow: 0 0 20px #ff007f;
+        }
+        I'll update the birthday card to include the new message content and back image (images/2025BD/usInFuture.jpg) as provided, and add a rotate sign in the bottom-right corner of the card-container to indicate that the card can be rotated. The rotate sign will be a small, animated icon styled to match the futuristic theme, and the artifact_id will remain the same since this is an update to the existing card. I'll also ensure the music button and other existing features (starfield, image grid, particles, etc.) are preserved.
+
+html
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Rotatable Birthday Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #0d1b2a, #1b263b);
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .starfield {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .image-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .grid-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .card-container {
+            width: 750px;
+            height: 550px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+            z-index: 10;
+            cursor: grab;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #00ffcc;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.7);
+            backface-visibility: hidden;
+        }
+
+        .card-front {
+            transform: rotateY(0deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 60px rgba(0, 255, 204, 1);
+        }
+
+        .text {
+            color: #00ffcc;
+            font-size: 48px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00ffcc;
+            animation: flicker 1.5s infinite;
+            text-align: center;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .message {
+            color: #e0e0e0;
+            font-size: 24px;
+            text-shadow: 0 0 5px #00ffcc;
+            opacity: 0;
+            animation: slideIn 1s forwards 0.5s;
+            text-align: center;
+            margin: 20px;
+        }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(-5px); }
+        }
+
+        .card-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #00ffcc, #ff007f);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffcc;
+            animation: float 4s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 30%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 70%; animation-delay: 2s; }
+
+        .music-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 2px solid #ff007f;
+            color: #ff007f;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-shadow: 0 0 5px #ff007f;
+            z-index: 20;
+        }
+
+        .music-button:hover {
+            background: #ff007f;
+            color: #fff;
+            box-shadow: 0 0 20px #ff007f;
+        }
+
+        .rotate-sign {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+          
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #00ffcc;
+            font-size: 20px;
+            text-shadow: 0 0 5px #00ffcc;
+            animation: rotateHint 2s infinite;
+            z-index: 11;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="starfield">
+        <!-- Dynamically generate stars via JavaScript -->
+    </div>
+    <div class="image-grid">
+        <img src="images/2025BD/3958.PNG" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0440.JPG" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0001.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0002.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0003.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0004.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0005.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0006.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0007.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0008.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0009.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0010.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0011.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0012.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0013.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0014.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0015.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0016.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0017.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0018.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0019.jpg" alt="Grid Image" class="grid-image">
+        <img src="images/2025BD/0020.jpg" alt="Grid Image" class="grid-image">
+    </div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+   
+    <div class="card-container" id="cardContainer">
+        <div class="card card-front">
+             <button class="music-button" id="musicButton">Play Music</button>
+            <div class="text">Happy Birthday!</div>
+            <div class="message">寶貝老婆，25歲生日快樂！🐷
+                生日歌成日都唱，呢首歌送俾你，亦都送俾我哋呢兩位忠實fans。
+
+                25歲嘅您仲係全世界最可愛嘅寶貝。
+
+                成日都話您係可愛派，呢個係真心的。祝您永遠都咁可愛，至少喺我心入邊您真係最可愛嗰個。
+
+                2字頭過咗一半，但係希望你仲可以保持住年輕嘅心，勇於探索。
+
+                呢一年雖然同你少見咗好多，但係你返嚟嘅嗰個月都玩得好開心同埋留下左好多難忘嘅Memories。好多謝你今次咁叻豬，去plan呢個大阪京都trip,辛苦晒喇，果然跟我身上學到一個識策劃嘅頭腦。
+
+                25歲嘅我哋一齊繼續加油，賺多啲錢，俾我哋嘅願望係可以快啲一齊生活啦。
+
+                Love u, 老公 上</div>
+        </div>
+        <div class="card card-back">
+            <img src="images/2025BD/usInFuture.jpg" alt="Birthday Image">
+        </div>
+        <div class="rotate-sign">↻</div>
+
+    </div>
+
+    <script>
+        // Generate stars for the starfield
+        const starfield = document.querySelector('.starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starfield.appendChild(star);
+        }
+
+        // 3D card rotation
+        const cardContainer = document.getElementById('cardContainer');
+        let isDragging = false;
+        let startX, currentRotation = 0;
+
+        cardContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            cardContainer.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.clientX - startX;
+            const sensitivity = 0.5;
+            currentRotation = deltaX * sensitivity;
+            cardContainer.style.transform = `rotateY(${currentRotation}deg)`;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            cardContainer.style.cursor = 'grab';
+        });
+
+        // Touch support for mobile
+        cardContainer.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.touches[0].clientX - startX;
+            const sensitivity = 0.5;
+            currentRotation = deltaX * sensitivity;
+            cardContainer.style.transform = `rotateY(${currentRotation}deg)`;
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Music control
+        const musicButton = document.getElementById('musicButton');
+        const audio = new Audio('bgm/情憑誰來定錯對.mp3');
+        let isPlaying = false;
+
+        musicButton.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                musicButton.textContent = 'Play Music';
+            } else {
+                audio.play();
+                musicButton.textContent = 'Pause Music';
+            }
+            isPlaying = !isPlaying;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,61 +1,669 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-  <head>
+<head>
   <meta charset="utf-8">
-  <title>CBC</title>
-  <!-- For the roboto font-->
+  <title>CBC - Futuristic Memories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&family=Montserrat:wght@300;400;600;700&family=Orbitron:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: rgb(40, 239, 190);
+      --primary-dark: #00a3ff;
+      --secondary: #ff00aa;
+      --dark: #121212;
+      --light: #f0f8ff;
+      --glass: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary-dark);
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
 
-  </head>
+    /*------------------- Futuristic Navbar --------------*/
+    .navbar {
+      width: 100%;
+      background-color: var(--dark);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1000;
+      border-bottom: 1px solid var(--glass-border);
+    }
 
-  <body>
+    .navbar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, var(--glass), transparent);
+      pointer-events: none;
+    }
 
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+    }
 
-  <!--Top Bar-->
-  <div class="navbar">
-    <div>
-      <a href="HBD.html"><button onclick="signInPopUp()" class="SignInButton">Sign In</button> </a>
-    </div>
+    .SignInButton {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 30px;
+      padding: 12px 25px;
+      border: none;
+      font-size: 16px;
+      color: var(--dark);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-    <script>
-      function signInPopUp() {
-        let text = "Hello! Welcome to CBC Birthday gift, ";
-        let unfilled = true;
-        do {
-          let userId = window.prompt("Please enter your Real Name:", "");
-          text += userId;
-          if (userId != null || userId != "") {
-            unfilled = false;
-          }
-        } while (unfilled == true);
-        unfilled = true;
-        do {
-          let password = window.prompt("Please enter your password:", "password");
-          if (password != null || password != "") {
-            unfilled = false;
-          }
-        } while (unfilled == true);
-        window.alert(text);
-        return userId;
+    .SignInButton:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      box-shadow: var(--neon-glow);
+      transform: translateY(-2px);
+    }
+
+    .buttonb {
+      background: transparent;
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      padding: 12px 20px;
+      font-size: 16px;
+      color: var(--light);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .buttonb:hover {
+      background: var(--glass);
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+    }
+
+    .buttonb img {
+      height: 20px;
+      filter: invert(1);
+      transition: filter 0.3s ease;
+    }
+
+    .buttonb:hover img {
+      filter: invert(79%) sepia(61%) saturate(2878%) hue-rotate(162deg) brightness(104%) contrast(105%);
+    }
+
+    /*- Futuristic Middle Bar--*/
+    .secondTopBar {
+      width: 100%;
+      background: linear-gradient(90deg, transparent, var(--dark), transparent);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      border-bottom: 1px solid var(--glass-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .secondTopBar::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      animation: scanline 3s linear infinite;
+    }
+
+    @keyframes scanline {
+      0% {
+        transform: translateX(-100%);
       }
-    </script>
 
+      100% {
+        transform: translateX(100%);
+      }
+    }
 
-    <!--Top Bar Other buttons -->
+    .secondTopBar a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 15px;
+      position: relative;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
 
-    <a class="buttonb" onclick="window.alert('Please contact 65779209')"> Contact</a>
-    <a class="buttonb" href="index.html"> Home</a>
-    <a class="buttonb" href="inbox.html" ><img src ="images/email.png"></a>
+    .secondTopBar a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
 
+    .secondTopBar a:hover {
+      color: var(--primary);
+    }
+
+    .secondTopBar a:hover::before {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-container img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+      z-index: -1;
+    }
+
+    .hero-content {
+      text-align: center;
+      padding: 0 20px;
+      max-width: 800px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, rgb(40, 239, 190), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% {
+        text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+      }
+
+      100% {
+        text-shadow: 0 0 20px rgba(0, 217, 255, 0.6), 0 0 30px rgba(0, 217, 255, 0.3);
+      }
+    }
+
+    .hero-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+      color: var(--light);
+    }
+
+    .hero-content h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      padding: 80px 20px;
+      position: relative;
+    }
+
+    .section-header h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+      padding: 50px 5%;
+      position: relative;
+    }
+
+    .container1 {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .mySlides {
+      display: none;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .mySlides img {
+      max-width: 80%;
+      max-height: 70vh;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--glass-border);
+      transition: transform 0.5s ease;
+    }
+
+    .mySlides img:hover {
+      transform: scale(1.02);
+    }
+
+    .numbertext {
+      color: var(--light);
+      font-size: 16px;
+      padding: 15px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--glass);
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+    }
+
+    .prev,
+    .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: 60px;
+      height: 60px;
+      margin-top: -30px;
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 30px;
+      border-radius: 50%;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass);
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
+    }
+
+    .prev:hover,
+    .next:hover {
+      background: var(--primary);
+      color: var(--dark);
+      box-shadow: var(--neon-glow);
+    }
+
+    .prev {
+      left: 5%;
+    }
+
+    .next {
+      right: 5%;
+    }
+
+    .caption-container {
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+      background: var(--glass);
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--glass-border);
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .caption-container p {
+      font-size: 1.2rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 20px 0;
+    }
+
+    .column {
+      flex: 0 0 calc(16.66% - 15px);
+      max-width: calc(16.66% - 15px);
+    }
+
+    .demo {
+      opacity: 0.6;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+
+    .demo:hover {
+      opacity: 1;
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+      transform: translateY(-5px);
+    }
+
+    .active {
+      opacity: 1;
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+    }
+
+    /* Chatbot Section */
+    .chatbot-section {
+      padding: 80px 5%;
+      text-align: center;
+      position: relative;
+    }
+
+    .chatbot-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--glass);
+      border-radius: 30px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .chatbot-container h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .inputBox {
+      width: 100%;
+      padding: 15px;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--light);
+      font-size: 16px;
+      margin-bottom: 20px;
+      resize: none;
+      transition: all 0.3s ease;
+    }
+
+    .inputBox:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+    }
+
+    .chatbot-submit {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border: none;
+      color: var(--dark);
+      padding: 12px 30px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+    }
+
+    .chatbot-submit:hover {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      box-shadow: var(--neon-glow);
+      transform: translateY(-2px);
+    }
+
+    .box {
+      max-width: 70%;
+      margin: 30px auto;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      padding: 20px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--dark);
+      border-radius: 20px;
+      position: relative;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .sb1:before {
+      content: "";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      border-left: 15px solid var(--primary-dark);
+      border-right: 15px solid transparent;
+      border-top: 15px solid var(--primary-dark);
+      border-bottom: 15px solid transparent;
+      right: -15px;
+      top: 20px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: right;
+      padding: 30px 5%;
+      color: var(--light);
+      font-size: 14px;
+      border-top: 1px solid var(--glass-border);
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 1200px) {
+      .column {
+        flex: 0 0 calc(25% - 15px);
+        max-width: calc(25% - 15px);
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content h2 {
+        font-size: 1.8rem;
+      }
+
+      .hero-content h3 {
+        font-size: 1.2rem;
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+      }
+
+      .column {
+        flex: 0 0 calc(33.33% - 15px);
+        max-width: calc(33.33% - 15px);
+      }
+
+      .prev,
+      .next {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+
+      .chatbot-container h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media screen and (max-width: 576px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .nav-buttons {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .secondTopBar {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .secondTopBar a {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .column {
+        flex: 0 0 calc(50% - 15px);
+        max-width: calc(50% - 15px);
+      }
+
+      .mySlides img {
+        max-width: 95%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Futuristic Navbar -->
+  <div class="navbar">
+    <div class="nav-buttons">
+      <a href="index.html"><button class="buttonb">Home</button></a>
+      <a href="inbox.html"><button class="buttonb"><img src="images/email.png"> Messages</button></a>
+      <a onclick="window.alert('Please contact 65779209')"><button class="buttonb">Contact</button></a>
+      <a href="game.html"><button class="buttonb"> 2025CBCBD</button></a>
+    </div>
+    <a href="HBD.html"><button onclick="signInPopUp()" class="SignInButton">Sign In</button></a>
   </div>
 
+  <script>
+    function signInPopUp() {
+      let text = "Hello! Welcome to CBC Birthday gift, ";
+      let unfilled = true;
+      do {
+        let userId = window.prompt("Please enter your Real Name:", "");
+        text += userId;
+        if (userId != null || userId != "") {
+          unfilled = false;
+        }
+      } while (unfilled == true);
+      unfilled = true;
+      do {
+        let password = window.prompt("Please enter your password:", "password");
+        if (password != null || password != "") {
+          unfilled = false;
+        }
+      } while (unfilled == true);
+      window.alert(text);
+      return userId;
+    }
+  </script>
 
+  <!-- Futuristic Middle Bar -->
   <div class="secondTopBar">
     <a href="HBD.html">June</a>
     <a href="">May</a>
@@ -63,286 +671,236 @@
     <a href="">March</a>
     <a href="">February</a>
     <a href="">January</a>
-
   </div>
 
-  
-  <div class="container" style= "height: 1200px">
-    <img src="images/Sunset.jpeg" alt="Code" style="width:100%; height :1200px; opacity: 0.4;">
-    <div class="titleInPage">
-      <h1 style="font-family: sans-serif;">Welcome to CBC - 22</h1>
-      <h2 style="font-weight: bold;">Chan Bo Chu</h2>
-      <h3 style="font-size: 20px; color: grey">Tresurable Memories</h3>
+  <!-- Hero Section -->
+  <div class="hero-container">
+    <img src="images/Sunset.jpeg" alt="Futuristic Sunset">
+    <div class="hero-content">
+      <h1>Welcome to CBC - 22</h1>
+      <h2>Chan Bo Chu</h2>
+      <h3>Treasurable Memories</h3>
     </div>
   </div>
 
-<div class = "container" style = "height: 200px">
-    <div class = "titleInPage"><h2> Cutiest Creature in the World</h2></div>
- </div>
-
-
-
-<div class = "container" style = "max-height: 2000px ;">
-
-
- 
-  <h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;text-align:center">2021-2022 Highlights</h2>
-
-  <div class="container1" style="">
-    <div class="mySlides">
-      <div class="numbertext">1 / 6</div>
-      <img src="images/camp_undershelter.jpeg" style="width:80% ;border-radius: 50px ;">
-    </div>
-
-    <div class="mySlides">
-      <div class="numbertext">2 / 6</div>
-      <img src="images/missE.jpeg" style="width:80%;border-radius: 50px ;">
-    </div>
-
-    <div class="mySlides">
-      <div class="numbertext">3 / 6</div>
-      <img src="images/outside_Mplus.jpeg" style="width:80%;border-radius: 50px ;">
-    </div>
-      
-    <div class="mySlides">
-      <div class="numbertext">4 / 6</div>
-      <img src="images/onemonth.jpeg" style="width:80%;border-radius: 50px ;">
-    </div>
-
-    <div class="mySlides">
-      <div class="numbertext">5 / 6</div>
-      <img src="images/fixing_camera.jpeg" style=" width:80%;border-radius: 50px ;">
-    </div>
-      
-    <div class="mySlides">
-      <div class="numbertext">6 / 6</div>
-      <img src="images/sunset_toobright.jpeg" style="width:80%;border-radius: 50px ;">
-    </div>
-      
-    
-    <a class="prev" onclick="plusSlides(-1)">❮</a>
-    <a class="next" onclick="plusSlides(1)">❯</a>
-    
-
-    
+  <!-- Gallery Section -->
+  <div class="section-header">
+    <h2>2021-2022 Highlights</h2>
   </div>
 
+  <div class="gallery-section">
+    <div class="container1">
+      <div class="mySlides">
+        <div class="numbertext">1 / 6</div>
+        <img src="images/camp_undershelter.jpeg" alt="老婆與海">
+      </div>
 
-  <div class ="container1" style ="">
+      <div class="mySlides">
+        <div class="numbertext">2 / 6</div>
+        <img src="images/missE.jpeg" alt="幾時剪番個冬菇頭">
+      </div>
+
+      <div class="mySlides">
+        <div class="numbertext">3 / 6</div>
+        <img src="images/outside_Mplus.jpeg" alt="158cm -> 170cm">
+      </div>
+
+      <div class="mySlides">
+        <div class="numbertext">4 / 6</div>
+        <img src="images/onemonth.jpeg" alt="又一個月!?">
+      </div>
+
+      <div class="mySlides">
+        <div class="numbertext">5 / 6</div>
+        <img src="images/fixing_camera.jpeg" alt="偽文青">
+      </div>
+
+      <div class="mySlides">
+        <div class="numbertext">6 / 6</div>
+        <img src="images/sunset_toobright.jpeg" alt="Enjoy hugging you under the everyday's sunlight">
+      </div>
+
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+
     <div class="caption-container">
       <p id="caption"></p>
     </div>
-    <div class="row" >
-      <div class="column">
-        <img class="demo cursor" src="images/camp_undershelter.jpeg" style="width:100%;" onclick="currentSlide(1)" alt="老婆與海">
-      </div>
-      <div class="column">
-          <img class="demo cursor" src="images/missE.jpeg" style="width:100%" onclick="currentSlide(2)" alt="幾時剪番個冬菇頭">
-        </div>
-      <div class="column">
-        <img class="demo cursor" src="images/outside_Mplus.jpeg" style="width:100%;" onclick="currentSlide(3)" alt="158cm -> 170cm">
-      </div>
-      <div class="column">
-        <img class="demo cursor" src="images/onemonth.jpeg" style="width:100%" onclick="currentSlide(4)" alt="又一個月!?">
-      </div>
 
+    <div class="row">
       <div class="column">
-        <img class="demo cursor" src="images/fixing_camera.jpeg" style="width:100%" onclick="currentSlide(5)" alt="偽文青">
+        <img class="demo cursor" src="images/camp_undershelter.jpeg" onclick="currentSlide(1)" alt="老婆與海">
       </div>
-      
       <div class="column">
-        <img class="demo cursor" src="images/sunset_toobright.jpeg" style="width:100%" onclick="currentSlide(6)" alt="Enjoy hugging you under the everyday's sunlight ">
-      </div>  
-
-      
-
+        <img class="demo cursor" src="images/missE.jpeg" onclick="currentSlide(2)" alt="幾時剪番個冬菇頭">
+      </div>
+      <div class="column">
+        <img class="demo cursor" src="images/outside_Mplus.jpeg" onclick="currentSlide(3)" alt="158cm -> 170cm">
+      </div>
+      <div class="column">
+        <img class="demo cursor" src="images/onemonth.jpeg" onclick="currentSlide(4)" alt="又一個月!?">
+      </div>
+      <div class="column">
+        <img class="demo cursor" src="images/fixing_camera.jpeg" onclick="currentSlide(5)" alt="偽文青">
+      </div>
+      <div class="column">
+        <img class="demo cursor" src="images/sunset_toobright.jpeg" onclick="currentSlide(6)"
+          alt="Enjoy hugging you under the everyday's sunlight">
+      </div>
     </div>
   </div>
 
-        <script>
-        let slideIndex = 1;
-        showSlides(slideIndex);
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
 
-        function plusSlides(n) {
-          showSlides(slideIndex += n);
-        }
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
 
-        function currentSlide(n) {
-          showSlides(slideIndex = n);
-        }
-        sh
-        function showSlides(n) {
-          let i;
-          let slides = document.getElementsByClassName("mySlides");
-          let dots = document.getElementsByClassName("demo");
-          let captionText = document.getElementById("caption");
-          if (n > slides.length) {slideIndex = 1}
-          if (n < 1) {slideIndex = slides.length}
-          for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-          }
-          for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-          }
-          slides[slideIndex-1].style.display = "block";
-          dots[slideIndex-1].className += " active";
-          captionText.innerHTML = dots[slideIndex-1].alt;
-        }
-        </script>
-    
-</div>
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
 
-<div class="container" style = "transform:translate(30px, 0px)">
-  <div class = "chatbot">
-    <h1 style="font-family: sans-serif;">Ask me something, when you are bored</h1>
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("demo");
+      let captionText = document.getElementById("caption");
+      if (n > slides.length) {
+        slideIndex = 1
+      }
+      if (n < 1) {
+        slideIndex = slides.length
+      }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+      captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
+  </script>
 
-    <form action="/action_page.php" id="usrform">
+  <!-- Chatbot Section -->
+  <div class="chatbot-section">
+    <div class="chatbot-container">
+      <h1>Ask me something, when you are bored</h1>
 
-    </form>
-    <br>
+      <div class="chatbot-form">
+        <textarea class="inputBox" id="userInput1" rows="4" placeholder="Enter text here..."></textarea>
+        <button type="button" onclick="reply()" class="chatbot-submit">Send Message</button>
+      </div>
 
-
-    <textarea class= "inputBox" id="userInput1" rows="4" cols="60" name="comment"  form="usrform">Enter text here...</textarea>
-
-
-    <input type="submit" onclick = "reply()" >
-
-    <script>
-      
-         function getRandomInt(min, max) {
-                 return Math.floor(Math.random() *10) % max
-            }
-        function reply(){
-            
-
-            var input1 = document.getElementById('userInput1').value ;
-
-           
-            
-            if (input1.toLowerCase().includes("Hello")  || input1.toLowerCase().includes("Hi")|| input1.toLowerCase().includes("早晨") ||  input1.toLowerCase().includes("morn")){
-        
-                let draw = getRandomInt(0,4);
-                
-                switch (draw){
-                    case 0: 
-                        document.getElementById('ans').innerHTML = "Hello, how you doing bobui?";
-                        break;
-                    case 1: 
-                        document.getElementById('ans').innerHTML = "Halo Ha? What did you do today?";
-                        break;
-                    case 2: 
-                        document.getElementById('ans').innerHTML = "Yo, Baby. Whats up";
-                        break;
-                    case 3: 
-                        document.getElementById('ans').innerHTML = "老婆？";
-                        break;
-                }
-            }
-            if (input1.toLowerCase().includes("") || input1.toLowerCase().includes("boring") ||input1.toLowerCase().includes("bored") || input1.toLowerCase().includes("miss")) {
-                
-                let draw = getRandomInt(0,4);
-                
-                switch (draw){
-                    case 0: 
-                        document.getElementById('ans').innerHTML = "How about give a call to GorGor?";
-                        break;
-                    case 1: 
-                        document.getElementById('ans').innerHTML = "Have you lunched yet b??";
-                        break;
-                    case 2: 
-                        document.getElementById('ans').innerHTML = "What did you have for lunch today?";
-                        break;
-                    case 3: 
-                        document.getElementById('ans').innerHTML = "老婆, 直接打俾哥哥啦，老公掛住您鳥";
-                        break;
-                }
-            }
-            if (input1.toLowerCase().includes("love")){
-                let draw = getRandomInt(0,4);
-                
-                switch (draw){
-                    case 0: 
-                        document.getElementById('ans').innerHTML = "I love you so much,CBC!!";
-                        break;
-                    case 1: 
-                        document.getElementById('ans').innerHTML = "Love you bbb. You better find me now, hug hug.";
-                        break;
-                    case 2: 
-                        document.getElementById('ans').innerHTML = "Love me, then call me la.";
-                        break;
-                    case 3: 
-                        document.getElementById('ans').innerHTML = "I love you 老婆,掛住寶貝鳥";
-                        break;
-                }
-            }
-            if (input1.toLowerCase().includes("where are you")||input1.toLowerCase().includes("where are u")||input1.toLowerCase().includes("where r u")){
-                let draw = getRandomInt(0,4);
-                
-                switch (draw){
-                    case 0: 
-                        document.getElementById('ans').innerHTML = "I am at your heart lor";
-                        break;
-                    case 1: 
-                        document.getElementById('ans').innerHTML = "I am at your back. LOOOK";
-                        break;
-                    case 2: 
-                        document.getElementById('ans').innerHTML = "Give me a call and you'll know";
-                        break;
-                    case 3: 
-                        document.getElementById('ans').innerHTML = "Dun know 呢, you guess guess";
-                        break;
-                }
-            }
-            if (input1.toLowerCase().includes("who are you")||input1.toLowerCase().includes("who are u")||input1.toLowerCase().includes("who r u")){
-                let draw = getRandomInt(0,2);
-                
-                switch (draw){
-                    case 0: 
-                        document.getElementById('ans').innerHTML = "I am an AI called CBC's husband Simulator, haha.";
-                        break;
-                    case 1: 
-                        document.getElementById('ans').innerHTML = "I am just an AI";
-                        break;
-                 
-                }
-            }
-            if (input1.toLowerCase().includes("ok")||input1.toLowerCase().includes("good")||input1.toLowerCase().includes("okay")||input1.toLowerCase().includes("yes")||input.toLowerCase().includes("好")){
-                let draw = getRandomInt(0,4);
-                
-                switch (draw){
-                    case 0: 
-                        document.getElementById('ans').innerHTML = "That's awesome.";
-                        break;
-                    case 1: 
-                        document.getElementById('ans').innerHTML = "掂啊！";
-                        break;
-                    case 2: 
-                        document.getElementById('ans').innerHTML = "好！ 仲有冇其他野想問我";
-                        break;
-                    case 3: 
-                        document.getElementById('ans').innerHTML = "掂過借火。";
-                        break;
-                }
-            }
-          
-            if(input1.length > 30){
-                document.getElementById('ans').innerHTML = "Too Long didn't read...... Call me Directly la.";
-            }
-            
-
-        }
-    </script>
-
-    <div class="box sb1"><p id= "ans"></p></div>
-    
-    
+      <div class="box sb1">
+        <p id="ans"></p>
+      </div>
+    </div>
   </div>
-</div>
 
-<div><p style="float: right;"> Developed by Chan Lo Gung, Published at 2022.06.30</p></div>
+  <script>
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
+    function reply(event) {
+      // Prevent form submission if event is provided
+      if (event) event.preventDefault();
 
+      // Get and normalize input
+      const input = document.getElementById('userInput1').value.trim().toLowerCase();
+      let response = '';
 
-  </body>
+      // Response mappings
+      const responses = {
+        greetings: [
+          "Hello, how you doing bobui?",
+          "Halo Ha? What did you do today?",
+          "Yo, Baby. Whats up",
+          "老婆？"
+        ],
+        boredom: [
+          "How about give a call to GorGor?",
+          "Have you lunched yet b??",
+          "What did you have for lunch today?",
+          "老婆, 直接打俾哥哥啦，老公掛住您鳥"
+        ],
+        love: [
+          "I love you so much, CBC!!",
+          "Love you bbb. You better find me now, hug hug.",
+          "Love me, then call me la.",
+          "I love you 老婆, 掛住寶貝鳥"
+        ],
+        where: [
+          "I am at your heart lor",
+          "I am at your back. LOOOK",
+          "Give me a call and you'll know",
+          "Dun know 呢, you guess guess"
+        ],
+        who: [
+          "I am an AI called CBC's husband Simulator, haha.",
+          "I am just an AI"
+        ],
+        positive: [
+          "That's awesome.",
+          "掂啊！",
+          "好！ 仲有冇其他野想問我",
+          "掂過借火。"
+        ],
+        food: [
+          "食啲炸雞 ! 記得配可樂 ",
+          "How about some pasta ",
+          "Eat what dou ok, eat with meeeee",
+          ""
+        ],
+        tooLong: "Too Long didn't read...... Call me Directly la.",
+        default: [
+          "Hmm, not sure what you mean. Try something else!",
+          "What's that? Tell me more!",
+          "Huh? Call me la, let's chat!"
+        ]
+      };
+
+      // Check input length first
+      if (input.length > 30) {
+        response = responses.tooLong;
+      } else if (input.includes("hello") || input.includes("hi") || input.includes("早晨") || input.includes("morn")) {
+        response = responses.greetings[getRandomInt(0, responses.greetings.length - 1)];
+      } else if (input.includes("boring") || input.includes("bored") || input.includes("miss")) {
+        response = responses.boredom[getRandomInt(0, responses.boredom.length - 1)];
+      } else if (input.includes("love")) {
+        response = responses.love[getRandomInt(0, responses.love.length - 1)];
+      } else if (input.includes("where are you") || input.includes("where are u") || input.includes("where r u")) {
+        response = responses.where[getRandomInt(0, responses.where.length - 1)];
+      } else if (input.includes("who are you") || input.includes("who are u") || input.includes("who r u")) {
+        response = responses.who[getRandomInt(0, responses.who.length - 1)];
+      } else if (input.includes("ok") || input.includes("good") || input.includes("okay") || input.includes("yes") ||
+        input.includes("好")) {
+        response = responses.positive[getRandomInt(0, responses.positive.length - 1)];
+      } else if (input.includes("eat") || input.includes("food")|| input.includes("lunch")) {
+        response = responses.food[getRandomInt(0, responses.positive.length - 1)];
+      }
+      
+      else if (input.length === 0) {
+        response = "Hey, type something la!";
+      } else {
+        response = responses.default[getRandomInt(0, responses.default.length - 1)];
+      }
+
+      // Display response and clear input
+      document.getElementById('ans').innerHTML = response;
+      document.getElementById('userInput1').value = '';
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <p>Developed by Chan Lo Gung, Published at 2022.06.30</p>
+  </footer>
+</body>
 
 </html>
